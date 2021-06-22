@@ -34,10 +34,7 @@ suite("Functional Tests", function () {
         res.body.should.have.property("created_on");
         res.body.should.have.property("updated_on");
         assert.equal(res.body.open, true);
-        assert.equal(
-          res.body.issue_title,
-          "First test with all fields required"
-        );
+        assert.equal(res.body.issue_title, "First test with all fields");
         assert.equal(res.body.issue_text, "Test 1");
         assert.equal(res.body.created_by, "Sakarious");
         done();
@@ -46,8 +43,8 @@ suite("Functional Tests", function () {
 
   test("Create an issue with only required fields: POST request to /api/issues/{project}", function (done) {
     let newIssue = {
-      issue_title: "Second test with only fields",
-      issue_text: "Test 1",
+      issue_title: "Second test with only required fields",
+      issue_text: "Test 2",
       created_by: "Sakarious",
     };
     chai
@@ -69,9 +66,9 @@ suite("Functional Tests", function () {
         assert.equal(res.body.open, true);
         assert.equal(
           res.body.issue_title,
-          "First test with all fields required"
+          "Second test with only required fields"
         );
-        assert.equal(res.body.issue_text, "Test 1");
+        assert.equal(res.body.issue_text, "Test 2");
         assert.equal(res.body.created_by, "Sakarious");
         done();
       });
