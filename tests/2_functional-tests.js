@@ -12,7 +12,7 @@ suite("Functional Tests", function () {
     let newIssue = {
       assigned_to: "John Doe",
       status_text: "New Issue, Treat as urgent",
-      issue_title: "First test with all fields required",
+      issue_title: "First test with all fields",
       issue_text: "Test 1",
       created_by: "Sakarious",
     };
@@ -46,7 +46,7 @@ suite("Functional Tests", function () {
 
   test("Create an issue with only required fields: POST request to /api/issues/{project}", function (done) {
     let newIssue = {
-      issue_title: "Second test with only fields required",
+      issue_title: "Second test with only fields",
       issue_text: "Test 1",
       created_by: "Sakarious",
     };
