@@ -1,4 +1,6 @@
 "use strict";
+const validator = require("./validation");
+const issuesModel = require("../model/issues");
 
 module.exports = function (app) {
   app
