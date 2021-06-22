@@ -46,8 +46,6 @@ suite("Functional Tests", function () {
 
   test("Create an issue with only required fields: POST request to /api/issues/{project}", function (done) {
     let newIssue = {
-      assigned_to: "John Doe",
-      status_text: "New Issue, Treat as urgent",
       issue_title: "First test with all fields required",
       issue_text: "Test 1",
       created_by: "Sakarious",
@@ -57,7 +55,6 @@ suite("Functional Tests", function () {
       .post("/api/issues/apitest")
       .send(newIssue)
       .end(function (err, res) {
-        //console.log(res.body);
         assert.equal(res.status, 200);
         res.body.should.be.a("object");
         res.body.should.have.property("_id");
