@@ -39,4 +39,4 @@ const issuesSchema = new Schema(
   { timestamps: { createdAt: "created_on", updatedAt: "updated_on" } }
 );
 
-module.exports = Mongoose.model("Issues", issuesSchema);
+module.exports = Mongoose.model("issues", issuesSchema);
