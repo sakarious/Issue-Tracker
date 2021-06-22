@@ -73,4 +73,19 @@ suite("Functional Tests", function () {
         done();
       });
   });
+
+  test("Create an issue with missing required fields: POST request to /api/issues/{project}", function (done) {
+    let newIssue = {
+      issue_title: "",
+      issue_text: "",
+      created_by: "",
+    };
+    chai
+      .request(server)
+      .post("/api/issues/apitest")
+      .send(newIssue)
+      .end(function (err, res) {
+        done();
+      });
+  });
 });
