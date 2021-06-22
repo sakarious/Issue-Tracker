@@ -85,6 +85,10 @@ suite("Functional Tests", function () {
       .post("/api/issues/apitest")
       .send(newIssue)
       .end(function (err, res) {
+        assert.equal(res.status, 200);
+        res.body.should.be.a("object");
+        res.body.should.have.property("error");
+        assert.equal(res.body.error, "required field(s) missing");
         done();
       });
   });
