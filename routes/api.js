@@ -21,6 +21,11 @@ module.exports = function (app) {
         console.log(error);
         return res.json({ error: "required field(s) missing" });
       }
+      let issue_title = req.body.issue_title;
+      let issue_text = req.body.issue_text;
+      let created_by = req.body.created_by;
+      let assigned_to = req.body.assigned_to ? req.body.assigned_to : "";
+      let status_text = req.body.status_text ? req.body.status_text : "";
     })
 
     .put(function (req, res) {
