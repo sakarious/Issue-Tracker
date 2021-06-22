@@ -26,6 +26,21 @@ module.exports = function (app) {
       let created_by = req.body.created_by;
       let assigned_to = req.body.assigned_to ? req.body.assigned_to : "";
       let status_text = req.body.status_text ? req.body.status_text : "";
+
+      let newIssue = new issuesModel({
+        issue_title,
+        issue_text,
+        created_by,
+        assigned_to,
+        status_text,
+      });
+
+      newIssue.save((err, docs) => {
+        if (err) {
+          return console.log(err);
+        }
+        res.json(docs);
+      });
     })
 
     .put(function (req, res) {
