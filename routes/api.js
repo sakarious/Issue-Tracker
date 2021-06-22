@@ -12,6 +12,15 @@ module.exports = function (app) {
 
     .post(function (req, res) {
       let project = req.params.project;
+      const { error, isValid } = validator.issueCreation(
+        req.body.issue_title,
+        req.body.issue_text,
+        req.body.created_by
+      );
+      if (!isValid) {
+        console.log(error);
+        return res.json({ error: "required field(s) missing" });
+      }
     })
 
     .put(function (req, res) {
