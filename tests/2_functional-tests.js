@@ -44,7 +44,7 @@ suite("Functional Tests", function () {
       });
   });
 
-  test("Create an issue with every field: POST request to /api/issues/{project}", function (done) {
+  test("Create an issue with only required fields: POST request to /api/issues/{project}", function (done) {
     let newIssue = {
       assigned_to: "John Doe",
       status_text: "New Issue, Treat as urgent",
