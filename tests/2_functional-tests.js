@@ -1,8 +1,9 @@
 const chaiHttp = require("chai-http");
 const chai = require("chai");
 const assert = chai.assert;
-const should = chai.should;
+const should = chai.should();
 const server = require("../server");
+const issuesModel = require("../model/issues");
 
 chai.use(chaiHttp);
 
@@ -20,6 +21,7 @@ suite("Functional Tests", function () {
       .post("/api/issues/apitest")
       .send(newIssue)
       .end(function (err, res) {
+        //console.log(res.body);
         assert.equal(res.status, 200);
         res.body.should.be.a("object");
         res.body.should.have.property("_id");
@@ -38,7 +40,6 @@ suite("Functional Tests", function () {
         );
         assert.equal(res.body.issue_text, "Test 1");
         assert.equal(res.body.created_by, "Sakarious");
-
         done();
       });
   });
