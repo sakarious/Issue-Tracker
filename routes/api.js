@@ -18,7 +18,7 @@ module.exports = function (app) {
         req.body.created_by
       );
       if (!isValid) {
-        return res.json({ error: "required field(s) missing" });
+        return res.send({ error: "required field(s) missing" });
       }
       let issue_title = req.body.issue_title;
       let issue_text = req.body.issue_text;
