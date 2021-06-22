@@ -4,6 +4,7 @@ const express     = require('express');
 const bodyParser  = require('body-parser');
 const expect      = require('chai').expect;
 const cors        = require('cors');
+const mongoose    = require('mongoose')
 require('dotenv').config();
 
 const apiRoutes         = require('./routes/api.js');
@@ -19,7 +20,16 @@ app.use(cors({origin: '*'})); //For FCC testing purposes only
 
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true })); 
+
+//Connect to MongoDB
+mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+  if (err) {
+    console.log(err)
+  } else {
+    console.log('Connection to Database Successful')
+  }
+})
 
 //Sample front-end
 app.route('/:project/')
