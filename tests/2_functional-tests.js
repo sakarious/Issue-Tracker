@@ -92,4 +92,14 @@ suite("Functional Tests", function () {
         done();
       });
   });
+  test("GET request to /api/issues/{project}", function (done) {
+    chai
+      .request(server)
+      .get("/api/issues/apitest")
+      .end(function (err, res) {
+        assert.equal(res.status, 200);
+        res.body.should.be.a("array");
+        done();
+      });
+  });
 });
