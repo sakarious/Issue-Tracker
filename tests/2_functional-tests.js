@@ -2,6 +2,7 @@ const chaiHttp = require("chai-http");
 const chai = require("chai");
 const assert = chai.assert;
 const should = chai.should();
+const expect = chai.expect;
 const server = require("../server");
 const issuesModel = require("../model/issues");
 
@@ -109,6 +110,18 @@ suite("Functional Tests", function () {
         res.body[0].should.have.property("created_on");
         res.body[0].should.have.property("updated_on");
         assert.equal(res.body[0].open, true);
+        done();
+      });
+  });
+
+  test("View issues on a project with one filter: GET request to /api/issues/{project}", function (done) {
+    chai
+      .request(server)
+      .get("/api/issues/apitest?open=false")
+      .end(function (err, res) {
+        assert.equal(res.status, 200);
+        res.body.should.be.a("array");
+        expect(res.body).to.have.lengthOf(0);
         done();
       });
   });
