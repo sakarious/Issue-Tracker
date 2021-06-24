@@ -19,12 +19,16 @@ module.exports = function (app) {
 
     .post(function (req, res) {
       let project = req.params.project;
-      const { error, isValid } = validator.issueCreation(
-        req.body.issue_title,
-        req.body.issue_text,
-        req.body.created_by
-      );
-      if (!isValid) {
+      // const { error, isValid } = validator.issueCreation(
+      //   req.body.issue_title,
+      //   req.body.issue_text,
+      //   req.body.created_by
+      // );
+      if (
+        !req.body.issue_text ||
+        !req.body.issue_title ||
+        !req.body.created_by
+      ) {
         return res.send({ error: "required field(s) missing" });
       }
       let issue_title = req.body.issue_title;
