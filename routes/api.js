@@ -8,6 +8,13 @@ module.exports = function (app) {
 
     .get(function (req, res) {
       let project = req.params.project;
+      issuesModel.find({}, (err, docs) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.json(docs);
+        }
+      });
     })
 
     .post(function (req, res) {
