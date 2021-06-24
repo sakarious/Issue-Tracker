@@ -61,7 +61,23 @@ module.exports = function (app) {
                 }
               );
             });
+          } else {
+            projectModel.findOneAndUpdate(
+              { projectName: project },
+              { $push: { issues: newIssue } },
+              { new: true },
+              (err, updatedDocs) => {
+                if (err) {
+                  console.log("Error from updating saved docs");
+                } else {
+                  let response = updatedDocs;
+                  let latestIssue = response.issues[response.issues.length - 1];
+                  res.json(latestIssue);
+                }
+              }
+            );
           }
+        }
       });
     })
 
