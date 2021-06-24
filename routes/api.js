@@ -1,6 +1,7 @@
 "use strict";
 const validator = require("./validation");
-const issuesModel = require("../model/issues");
+const { issueModel } = require("../model/issues");
+const projectModel = require("../model/project");
 
 module.exports = function (app) {
   app
@@ -19,11 +20,7 @@ module.exports = function (app) {
 
     .post(function (req, res) {
       let project = req.params.project;
-      // const { error, isValid } = validator.issueCreation(
-      //   req.body.issue_title,
-      //   req.body.issue_text,
-      //   req.body.created_by
-      // );
+
       if (
         !req.body.issue_text ||
         !req.body.issue_title ||
@@ -37,7 +34,7 @@ module.exports = function (app) {
       let assigned_to = req.body.assigned_to ? req.body.assigned_to : "";
       let status_text = req.body.status_text ? req.body.status_text : "";
 
-      let newIssue = new issuesModel({
+      let newIssue = new issueModel({
         issue_title,
         issue_text,
         created_by,
