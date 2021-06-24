@@ -99,6 +99,16 @@ suite("Functional Tests", function () {
       .end(function (err, res) {
         assert.equal(res.status, 200);
         res.body.should.be.a("array");
+        res.body[0].should.have.property("_id");
+        res.body[0].should.have.property("open");
+        res.body[0].should.have.property("issue_title");
+        res.body[0].should.have.property("issue_text");
+        res.body[0].should.have.property("created_by");
+        res.body[0].should.have.property("assigned_to");
+        res.body[0].should.have.property("status_text");
+        res.body[0].should.have.property("created_on");
+        res.body[0].should.have.property("updated_on");
+        assert.equal(res.body[0].open, true);
         done();
       });
   });
