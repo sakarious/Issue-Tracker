@@ -9,15 +9,29 @@ module.exports = function (app) {
 
     .get(function (req, res) {
       let project = req.params.project;
-
-      projectModel.find({ projectName: project }, (err, docs) => {
-        if (err) {
-          console.log(err);
-        } else {
-          let response = docs;
-          res.json(response[0].issues);
-        }
-      });
+      if (req.query) {
+        projectModel.find(
+          { projectName: project },
+          { issues: { $elemMatch: req.query } },
+          (err, docs) => {
+            if (err) {
+              console.log(err);
+            } else {
+              let response = docs;
+              res.json(response[0].issues);
+            }
+          }
+        );
+      } else {
+        projectModel.find({ projectName: project }, (err, docs) => {
+          if (err) {
+            console.log(err);
+          } else {
+            let response = docs;
+            res.json(response[0].issues);
+          }
+        });
+      }
     })
 
     .post(function (req, res) {
