@@ -9,16 +9,9 @@ module.exports = function (app) {
 
     .get(function (req, res) {
       let project = req.params.project;
-      issuesModel.find({}, (err, docs) => {
-        if (err) {
-          console.log(err);
-        } else {
-          res.json(docs);
-        }
-      });
     })
 
-    .post(async function (req, res) {
+    .post(function (req, res) {
       let project = req.params.project;
 
       if (
@@ -34,11 +27,7 @@ module.exports = function (app) {
       let assigned_to = req.body.assigned_to ? req.body.assigned_to : "";
       let status_text = req.body.status_text ? req.body.status_text : "";
 
-      let newProject = await new projectModel({
-        projectName: project,
-      });
-
-      let newIssue = await new issueModel({
+      let newIssue = new issueModel({
         issue_title,
         issue_text,
         created_by,
@@ -47,19 +36,33 @@ module.exports = function (app) {
       });
 
       //Check if project name exists
-      let foundProject = await projectModel.find({ projectName: project });
-
-      //Declear SavedIssue
-      let newIssue;
-
-      //If project already exists, add issue to project, else, create project and add issue to project
-      if (foundProject) {
-        newIssue = projectModel.findOneAndUpdate(
-          { projectName: project },
-          { $push: { issues: newIssue } },
-          { new: true }
-        );
-      }
+      projectModel.find({ projectName: project }, (err, docs) => {
+        if (err) {
+          console.log(err);
+        } else {
+          if (docs.length < 1) {
+            let newProject = new projectModel({
+              projectName: project,
+            });
+            newProject.save((err, savedProject) => {
+              projectModel.findOneAndUpdate(
+                { projectName: savedProject.projectName },
+                { $push: { issues: newIssue } },
+                { new: true },
+                (err, updatedDocs) => {
+                  if (err) {
+                    console.log("Error from updating saved docs");
+                  } else {
+                    let response = updatedDocs;
+                    let latestIssue =
+                      response.issues[response.issues.length - 1];
+                    res.json(latestIssue);
+                  }
+                }
+              );
+            });
+          }
+      });
     })
 
     .put(function (req, res) {
