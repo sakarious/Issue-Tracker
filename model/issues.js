@@ -1,11 +1,6 @@
 const Mongoose = require("mongoose");
 const Schema = Mongoose.Schema;
 
-// const opts = {
-//   createdAt: "created_at",
-//   updatedAt: "updated_at",
-// };
-
 const issuesSchema = new Schema(
   {
     issue_title: {
