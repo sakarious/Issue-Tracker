@@ -39,4 +39,6 @@ const issuesSchema = new Schema(
   { timestamps: { createdAt: "created_on", updatedAt: "updated_on" } }
 );
 
-module.exports = Mongoose.model("issues", issuesSchema);
+const issueModel = Mongoose.model("issues", issuesSchema);
+
+module.exports = { issuesSchema, issueModel };
