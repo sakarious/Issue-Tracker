@@ -18,7 +18,7 @@ module.exports = function (app) {
       });
     })
 
-    .post(function (req, res) {
+    .post(async function (req, res) {
       let project = req.params.project;
 
       if (
@@ -34,7 +34,11 @@ module.exports = function (app) {
       let assigned_to = req.body.assigned_to ? req.body.assigned_to : "";
       let status_text = req.body.status_text ? req.body.status_text : "";
 
-      let newIssue = new issueModel({
+      let newProject = await new projectModel({
+        projectName: project,
+      });
+
+      let newIssue = await new issueModel({
         issue_title,
         issue_text,
         created_by,
@@ -42,12 +46,20 @@ module.exports = function (app) {
         status_text,
       });
 
-      newIssue.save((err, docs) => {
-        if (err) {
-          return console.log(err);
-        }
-        res.json(docs);
-      });
+      //Check if project name exists
+      let foundProject = await projectModel.find({ projectName: project });
+
+      //Declear SavedIssue
+      let newIssue;
+
+      //If project already exists, add issue to project, else, create project and add issue to project
+      if (foundProject) {
+        newIssue = projectModel.findOneAndUpdate(
+          { projectName: project },
+          { $push: { issues: newIssue } },
+          { new: true }
+        );
+      }
     })
 
     .put(function (req, res) {
