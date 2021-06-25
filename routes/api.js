@@ -98,9 +98,9 @@ module.exports = function (app) {
     .put(function (req, res) {
       let project = req.params.project;
 
-      // if (!req.body._id) {
-      //   return res.send({ error: "missing _id" });
-      // }
+      if (!req.body._id) {
+        return res.send({ error: "missing _id" });
+      }
 
       let {
         _id,
