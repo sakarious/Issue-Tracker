@@ -98,8 +98,12 @@ module.exports = function (app) {
     .put(function (req, res) {
       let project = req.params.project;
 
-      if (!req.body._id) {
-        return res.send({ error: "missing _id" });
+      // if (!req.body._id) {
+      //   return res.send({ error: "missing _id" });
+      // }
+
+      if ("_id" in req.body == false) {
+        console.log("'description' is a required field in request body");
       }
 
       let issueUpdate = {};
@@ -121,7 +125,7 @@ module.exports = function (app) {
           if (err) {
             console.log(err);
           } else {
-            res.json(docs);
+            res.send({ result: "successfully updated", _id: req.body._id });
           }
         }
       );
