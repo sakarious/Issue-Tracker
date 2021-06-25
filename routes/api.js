@@ -10,42 +10,28 @@ module.exports = function (app) {
     .get(function (req, res) {
       let project = req.params.project;
 
-      if (Object.keys(req.query).length != 0) {
-        console.log(req.query);
-        //?created_by=Alice&assigned_to open=true
+      //?created_by=Alice&assigned_to open=true
 
-        // const {
-        //   _id,
-        //   open,
-        //   issue_text,
-        //   issue_title,
-        //   created_by,
-        //   assigned_to,
-        //   status_text,
-        // } = req.query;
+      let {
+        _id,
+        open,
+        issue_text,
+        issue_title,
+        created_by,
+        assigned_to,
+        status_text,
+      } = req.query;
 
-        projectModel.find(
-          { projectName: project },
-          {
-            issues: { $elemMatch: req.query },
-          },
-          (err, docs) => {
-            if (err) {
-              console.log(err);
-            } else {
-              res.json(docs);
-            }
-          }
-        );
-        return;
-      }
-      console.log("Got here");
+      console.log(req.query);
+
       projectModel.find({ projectName: project }, (err, docs) => {
         if (err) {
           console.log(err);
         } else {
           let response = docs;
-          res.json(response[0].issues);
+          let issuesArray = response[0].issues;
+
+          res.json(issuesArray);
         }
       });
     })
