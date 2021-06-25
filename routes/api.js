@@ -162,20 +162,5 @@ module.exports = function (app) {
           }
         }
       );
-
-      // issueModel.findByIdAndDelete(req.body.id, (err, docs) => {
-      //   if (err) {
-      //     console.log(err);
-      //     console.log("err");
-      //     res.send({ error: "could not delete", _id: req.body._id });
-      //   } else {
-      //     console.log("docs");
-      //     if (!docs._id) {
-      //       res.send({ error: "could not delete", _id: req.body._id });
-      //     } else {
-      //       res.send({ result: "successfully deleted", _id: docs._id });
-      //     }
-      //   }
-      // });
     });
 };
