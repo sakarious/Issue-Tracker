@@ -1,7 +1,5 @@
 "use strict";
-const validator = require("./validation");
-const { issueModel } = require("../model/issues");
-const projectModel = require("../model/project");
+const issueModel = require("../model/issues");
 
 module.exports = function (app) {
   app
