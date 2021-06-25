@@ -144,5 +144,38 @@ module.exports = function (app) {
 
     .delete(function (req, res) {
       let project = req.params.project;
+
+      if (!req.body._id) {
+        return res.send({ error: "missing _id" });
+      }
+
+      issueModel.findOneAndDelete(
+        { projectName: project, _id: req.body._id },
+        (err, docs) => {
+          if (err) {
+            res.send({ error: "could not delete", _id: req.body._id });
+          } else {
+            if (!docs) {
+              return res.send({ error: "could not delete", _id: req.body._id });
+            }
+            res.send({ result: "successfully deleted", _id: req.body._id });
+          }
+        }
+      );
+
+      // issueModel.findByIdAndDelete(req.body.id, (err, docs) => {
+      //   if (err) {
+      //     console.log(err);
+      //     console.log("err");
+      //     res.send({ error: "could not delete", _id: req.body._id });
+      //   } else {
+      //     console.log("docs");
+      //     if (!docs._id) {
+      //       res.send({ error: "could not delete", _id: req.body._id });
+      //     } else {
+      //       res.send({ result: "successfully deleted", _id: docs._id });
+      //     }
+      //   }
+      // });
     });
 };
