@@ -129,11 +129,10 @@ suite("Functional Tests", function () {
   test("View issues on a project with multiple filters: GET request to /api/issues/{project}", function (done) {
     chai
       .request(server)
-      .get("/api/issues/apitest?open=false")
+      .get("/api/issues/apitest?created_by=Sakarious&open=true")
       .end(function (err, res) {
         assert.equal(res.status, 200);
         res.body.should.be.a("array");
-        expect(res.body).to.have.lengthOf(0);
         done();
       });
   });
