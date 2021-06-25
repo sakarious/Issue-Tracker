@@ -6,62 +6,65 @@ module.exports = function (app) {
     .route("/api/issues/:project")
 
     .get(function (req, res) {
-      // let project = req.params.project;
-      // let {
-      //   _id,
-      //   open,
-      //   issue_text,
-      //   issue_title,
-      //   created_by,
-      //   assigned_to,
-      //   status_text,
-      // } = req.query;
-      // console.log(req.query);
-      // projectModel.find({ projectName: project }, (err, docs) => {
-      //   if (err) {
-      //     console.log(err);
-      //   } else {
-      //     let response = docs;
-      //     let issuesArray = response[0].issues;
-      //     if (_id) {
-      //       issuesArray = issuesArray.filter((issue) => issue._id == _id);
-      //     }
-      //     if (open) {
-      //       open = open == "false" ? false : true;
-      //       issuesArray = issuesArray.filter((issue) => issue.open == open);
-      //     }
-      //     if (issue_title) {
-      //       issuesArray = issuesArray.filter(
-      //         (issue) => issue.issue_title == issue_title
-      //       );
-      //     }
-      //     if (issue_text) {
-      //       issuesArray = issuesArray.filter(
-      //         (issue) => issue.issue_text == issue_text
-      //       );
-      //     }
-      //     if (created_by) {
-      //       issuesArray = issuesArray.filter(
-      //         (issue) => issue.created_by == created_by
-      //       );
-      //     }
-      //     if (assigned_to) {
-      //       issuesArray = issuesArray.filter(
-      //         (issue) => issue.assigned_to == assigned_to
-      //       );
-      //     }
-      //     if (status_text) {
-      //       issuesArray = issuesArray.filter(
-      //         (issue) => issue.status_text == status_text
-      //       );
-      //     }
-      //     res.json(issuesArray);
-      //   }
-      // });
+      let project = req.params.project;
+      let {
+        _id,
+        open,
+        issue_text,
+        issue_title,
+        created_by,
+        assigned_to,
+        status_text,
+      } = req.query;
+      console.log(req.query);
+
+      issueModel.find({ projectName: project }, (err, docs) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.json(docs);
+          // let response = docs;
+          // let issuesArray = response[0].issues;
+          // if (_id) {
+          //   issuesArray = issuesArray.filter((issue) => issue._id == _id);
+          // }
+          // if (open) {
+          //   open = open == "false" ? false : true;
+          //   issuesArray = issuesArray.filter((issue) => issue.open == open);
+          // }
+          // if (issue_title) {
+          //   issuesArray = issuesArray.filter(
+          //     (issue) => issue.issue_title == issue_title
+          //   );
+          // }
+          // if (issue_text) {
+          //   issuesArray = issuesArray.filter(
+          //     (issue) => issue.issue_text == issue_text
+          //   );
+          // }
+          // if (created_by) {
+          //   issuesArray = issuesArray.filter(
+          //     (issue) => issue.created_by == created_by
+          //   );
+          // }
+          // if (assigned_to) {
+          //   issuesArray = issuesArray.filter(
+          //     (issue) => issue.assigned_to == assigned_to
+          //   );
+          // }
+          // if (status_text) {
+          //   issuesArray = issuesArray.filter(
+          //     (issue) => issue.status_text == status_text
+          //   );
+          // }
+          // res.json(issuesArray);
+        }
+      });
     })
 
     .post(function (req, res) {
       let project = req.params.project;
+      console.log(req.body);
 
       if (
         !req.body.issue_text ||
