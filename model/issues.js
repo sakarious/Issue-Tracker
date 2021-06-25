@@ -30,10 +30,13 @@ const issuesSchema = new Schema(
       type: Boolean,
       default: true,
     },
+
+    projectName: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: { createdAt: "created_on", updatedAt: "updated_on" } }
 );
 
-const issueModel = Mongoose.model("issues", issuesSchema);
-
-module.exports = { issuesSchema, issueModel };
+module.exports = Mongoose.model("issues", issuesSchema);
