@@ -46,6 +46,29 @@ module.exports = function (app) {
             );
           }
 
+          if (issue_text) {
+            issuesArray = issuesArray.filter(
+              (issue) => issue.issue_text == issue_text
+            );
+          }
+
+          if (created_by) {
+            issuesArray = issuesArray.filter(
+              (issue) => issue.created_by == created_by
+            );
+          }
+
+          if (assigned_to) {
+            issuesArray = issuesArray.filter(
+              (issue) => issue.assigned_to == assigned_to
+            );
+          }
+
+          if (status_text) {
+            issuesArray = issuesArray.filter(
+              (issue) => issue.status_text == status_text
+            );
+          }
           res.json(issuesArray);
         }
       });
