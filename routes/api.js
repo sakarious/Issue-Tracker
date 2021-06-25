@@ -150,9 +150,9 @@ module.exports = function (app) {
       if (!req.body._id) {
         return res.send({ error: "missing _id" });
       }
-    });
+    })
 
-  let {} = req.body.delete(function (req, res) {
-    let project = req.params.project;
-  });
+    .delete(function (req, res) {
+      let project = req.params.project;
+    });
 };
