@@ -40,6 +40,12 @@ module.exports = function (app) {
             issuesArray = issuesArray.filter((issue) => issue.open == open);
           }
 
+          if (issue_title) {
+            issuesArray = issuesArray.filter(
+              (issue) => issue.issue_title == issue_title
+            );
+          }
+
           res.json(issuesArray);
         }
       });
