@@ -113,56 +113,18 @@ module.exports = function (app) {
         }
       });
 
-      console.log(issueUpdate);
-
-      // let {
-      //   _id,
-      //   open,
-      //   issue_text,
-      //   issue_title,
-      //   created_by,
-      //   assigned_to,
-      //   status_text,
-      // } = req.body;
-
-      // let fields = {
-      //   "issues.$._id": _id,
-      //   "issues.$.open": open,
-      //   "issues.$.issue_text": issue_text,
-      //   "issues.$.issue_title": issue_title,
-      //   "issues.$.created_by": created_by,
-      //   "issues.$.assigned_to": assigned_to,
-      //   "issues.$.status_text": status_text,
-      // };
-
-      // let fieldsToUpdate = {};
-      // for (const key in req.body) {
-      //   if (req.body[key] != undefined || req.body[key] != null) {
-      //     fieldsToUpdate[index] = req.body;
-      //   }
-      // }
-
-      // console.log(req.body);
-      // console.log(fields);
-      res.json({ done: "done" });
-
-      // let fieldsToUpdate = {
-      //   "issues.$.issue_title": issue_title,
-      //   "issues.$.comment": comment,
-      // };
-
-      // projectModel.findOneAndUpdate(
-      //   {
-      //     projectName: project,
-      //     "issues._id": _id,
-      //   },
-      //   {
-      //     $set: {
-      //       "issues.$.issue_title": issue_title,
-      //       "issues.$.comment": comment,
-      //     },
-      //   }
-      // );
+      issueModel.findByIdAndUpdate(
+        req.body._id,
+        issueUpdate,
+        { new: true },
+        (err, docs) => {
+          if (err) {
+            console.log(err);
+          } else {
+            res.json(docs);
+          }
+        }
+      );
     })
 
     .delete(function (req, res) {
