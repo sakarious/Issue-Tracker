@@ -125,4 +125,16 @@ suite("Functional Tests", function () {
         done();
       });
   });
+
+  test("View issues on a project with multiple filters: GET request to /api/issues/{project}", function (done) {
+    chai
+      .request(server)
+      .get("/api/issues/apitest?open=false")
+      .end(function (err, res) {
+        assert.equal(res.status, 200);
+        res.body.should.be.a("array");
+        expect(res.body).to.have.lengthOf(0);
+        done();
+      });
+  });
 });
