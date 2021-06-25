@@ -98,12 +98,23 @@ module.exports = function (app) {
     .put(function (req, res) {
       let project = req.params.project;
 
-      // if (!req.body._id) {
-      //   return res.send({ error: "missing _id" });
-      // }
+      if (!req.body._id) {
+        return res.send({ error: "missing _id" });
+      }
 
-      if ("_id" in req.body == false) {
-        console.log("'description' is a required field in request body");
+      if (
+        req.body._id &&
+        !req.body.issue_title &&
+        !req.body.issue_text &&
+        !req.body.created_by &&
+        !req.body.assigned_to &&
+        !req.body.status_text &&
+        !req.body.open
+      ) {
+        return res.send({
+          error: "no update field(s) sent",
+          _id: req.body._id,
+        });
       }
 
       let issueUpdate = {};
@@ -123,7 +134,7 @@ module.exports = function (app) {
         { new: true },
         (err, docs) => {
           if (err) {
-            console.log(err);
+            res.send({ error: "could not update", _id: req.body._id });
           } else {
             res.send({ result: "successfully updated", _id: req.body._id });
           }
