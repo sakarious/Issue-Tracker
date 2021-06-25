@@ -107,29 +107,33 @@ module.exports = function (app) {
         if (req.body[key] != "" || req.body[key] != undefined) {
           issueUpdate[key] = req.body[key];
         }
+
+        if (req.body.open) {
+          issueUpdate.open = false;
+        }
       });
 
       console.log(issueUpdate);
 
-      let {
-        _id,
-        open,
-        issue_text,
-        issue_title,
-        created_by,
-        assigned_to,
-        status_text,
-      } = req.body;
+      // let {
+      //   _id,
+      //   open,
+      //   issue_text,
+      //   issue_title,
+      //   created_by,
+      //   assigned_to,
+      //   status_text,
+      // } = req.body;
 
-      let fields = {
-        "issues.$._id": _id,
-        "issues.$.open": open,
-        "issues.$.issue_text": issue_text,
-        "issues.$.issue_title": issue_title,
-        "issues.$.created_by": created_by,
-        "issues.$.assigned_to": assigned_to,
-        "issues.$.status_text": status_text,
-      };
+      // let fields = {
+      //   "issues.$._id": _id,
+      //   "issues.$.open": open,
+      //   "issues.$.issue_text": issue_text,
+      //   "issues.$.issue_title": issue_title,
+      //   "issues.$.created_by": created_by,
+      //   "issues.$.assigned_to": assigned_to,
+      //   "issues.$.status_text": status_text,
+      // };
 
       // let fieldsToUpdate = {};
       // for (const key in req.body) {
@@ -138,8 +142,8 @@ module.exports = function (app) {
       //   }
       // }
 
-      console.log(req.body);
-      console.log(fields);
+      // console.log(req.body);
+      // console.log(fields);
       res.json({ done: "done" });
 
       // let fieldsToUpdate = {
