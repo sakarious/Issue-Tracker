@@ -31,6 +31,10 @@ module.exports = function (app) {
           let response = docs;
           let issuesArray = response[0].issues;
 
+          if (_id) {
+            issuesArray = issuesArray.filter((issue) => issue._id == _id);
+          }
+
           res.json(issuesArray);
         }
       });
