@@ -102,6 +102,15 @@ module.exports = function (app) {
         return res.send({ error: "missing _id" });
       }
 
+      let issueUpdate = {};
+      Object.keys(req.body).forEach((key) => {
+        if (req.body[key] != "" || req.body[key] != undefined) {
+          issueUpdate[key] = req.body[key];
+        }
+      });
+
+      console.log(issueUpdate);
+
       let {
         _id,
         open,
