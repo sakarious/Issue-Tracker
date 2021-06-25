@@ -35,6 +35,11 @@ module.exports = function (app) {
             issuesArray = issuesArray.filter((issue) => issue._id == _id);
           }
 
+          if (open) {
+            open = open == "false" ? false : true;
+            issuesArray = issuesArray.filter((issue) => issue.open == open);
+          }
+
           res.json(issuesArray);
         }
       });
